@@ -13,7 +13,7 @@ We track various metrics to understand how users interact with Gemini Enterprise
 
 ## Documentation
 
-- [GenAI User Analytics](genai_user_analytics.md): Detailed SQL queries for 10 key analytics metrics.
+- [User Analytics Queries](user_analytics/genai_user_metrics.sql): SQL file containing 10 key analytics metrics (Adoption, Growth, Engagement).
 
 ## Data Source
 
