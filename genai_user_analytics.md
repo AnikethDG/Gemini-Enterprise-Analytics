@@ -2,7 +2,7 @@
 
 This document outlines 10 key analytics queries designed to measure **User Adoption**, **Growth**, and **Engagement** for Gemini Enterprise Chat.
 
-**Table**: \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+**Table**: `bnoriega-test-ge.ConversationLogs.gemini_chat`
 
 ## 1. Daily Active Users (DAU) - **Adoption**
 The primary measure of daily usage. Tracks unique authenticated users interacting with the system.
@@ -25,7 +25,7 @@ WITH FirstSeen AS (
   SELECT
     userIamPrincipal,
     MIN(DATE(timestamp)) as first_seen_date
-  FROM \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+  FROM `bnoriega-test-ge.ConversationLogs.gemini_chat`
   GROUP BY 1
 )
 SELECT
@@ -45,14 +45,14 @@ WITH DailyStats AS (
   SELECT
     DATE(timestamp) as date,
     COUNT(DISTINCT userIamPrincipal) as dau
-  FROM \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+  FROM `bnoriega-test-ge.ConversationLogs.gemini_chat`
   GROUP BY 1
 ),
 MonthlyStats AS (
   SELECT
     DATE(timestamp) as date,
     COUNT(DISTINCT userIamPrincipal) as mau_rolling_30d -- Simplified for demo
-  FROM \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+  FROM `bnoriega-test-ge.ConversationLogs.gemini_chat`
   GROUP BY 1
 )
 SELECT
@@ -74,7 +74,7 @@ WITH UserSessions AS (
     DATE(timestamp) as date,
     userIamPrincipal,
     COUNT(DISTINCT REGEXP_EXTRACT(JSON_VALUE(response, '$.answer.name'), 'sessions/([^/]+)')) as session_count
-  FROM \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+  FROM `bnoriega-test-ge.ConversationLogs.gemini_chat`
   WHERE methodName = 'StreamAssist'
   AND JSON_VALUE(response, '$.answer.name') IS NOT NULL
   GROUP BY 1, 2
@@ -95,7 +95,7 @@ WITH SessionDepths AS (
   SELECT
     REGEXP_EXTRACT(JSON_VALUE(response, '$.answer.name'), 'sessions/([^/]+)') as session_id,
     COUNT(*) as queries
-  FROM \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+  FROM `bnoriega-test-ge.ConversationLogs.gemini_chat`
   WHERE methodName = 'StreamAssist'
   AND JSON_VALUE(response, '$.answer.name') IS NOT NULL
   GROUP BY 1
@@ -129,7 +129,7 @@ WITH WeeklyUsers AS (
   SELECT DISTINCT
     userIamPrincipal,
     DATE_TRUNC(DATE(timestamp), WEEK) as week_start
-  FROM \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+  FROM `bnoriega-test-ge.ConversationLogs.gemini_chat`
 )
 SELECT
   CurrentWeek.week_start,
@@ -153,7 +153,7 @@ WITH SessionTimes AS (
     REGEXP_EXTRACT(JSON_VALUE(response, '$.answer.name'), 'sessions/([^/]+)') as session_id,
     MIN(timestamp) as session_start,
     MAX(timestamp) as session_end
-  FROM \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+  FROM `bnoriega-test-ge.ConversationLogs.gemini_chat`
   WHERE methodName = 'StreamAssist'
   AND JSON_VALUE(response, '$.answer.name') IS NOT NULL
   GROUP BY 1
@@ -186,7 +186,7 @@ WITH SessionCounts AS (
   SELECT
     REGEXP_EXTRACT(JSON_VALUE(response, '$.answer.name'), 'sessions/([^/]+)') as session_id,
     COUNT(*) as query_count
-  FROM \`bnoriega-test-ge.ConversationLogs.gemini_chat\`
+  FROM `bnoriega-test-ge.ConversationLogs.gemini_chat`
   WHERE methodName = 'StreamAssist'
   AND JSON_VALUE(response, '$.answer.name') IS NOT NULL
   GROUP BY 1
