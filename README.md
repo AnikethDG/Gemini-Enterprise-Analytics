@@ -21,4 +21,11 @@ The queries are designed for the BigQuery table: `bnoriega-test-ge.ConversationL
 
 ## Usage
 
-You can run these queries directly in the BigQuery console to generate reports and dashboards.
+You can run these queries directly in the BigQuery console.
+
+Alternatively, use the provided shell scripts for automated execution:
+
+*   **User Analytics**: `user_analytics/run_queries.sh`
+*   **Classification**: `classification/test_classification.sh`
+
+See the subdirectories for detailed instructions.

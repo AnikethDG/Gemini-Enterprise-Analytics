@@ -29,3 +29,14 @@ Run `03_analytics.sql` to get insights:
 *   **Cluster Interpretation**: See what each cluster represents.
 *   **Outlier Detection**: Find new or anomalous prompts.
 *   **Engagement**: See which topics are trending.
+
+## Automation
+
+You can run the full pipeline (Training -> Processing -> Analytics) using the automated script:
+
+```bash
+./test_classification.sh
+```
+
+This script executes the SQL files in the correct order, splitting `03_analytics.sql` into individual queries for easier debugging.
+

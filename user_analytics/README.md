@@ -15,3 +15,19 @@ This directory contains SQL scripts for analyzing user adoption, growth, and eng
   8.  Session Duration Analysis
   9.  Feedback Participation Rate
   10. Deep Engagement Sessions
+
+## Automation
+
+You can run all queries automatically using the provided shell script:
+
+```bash
+./run_queries.sh
+```
+
+This script will:
+1.  Parse the `genai_user_metrics.sql` file.
+2.  Execute each query individually against BigQuery.
+3.  Report success/failure status.
+
+**Configuration**: Edit `run_queries.sh` to change the `PROJECT_ID` variable if needed.
+
