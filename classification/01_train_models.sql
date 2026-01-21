@@ -15,7 +15,7 @@ REMOTE WITH CONNECTION `us.vertex_embeddings_conn`
 OPTIONS (ENDPOINT = 'text-embedding-004');
 
 -- 2. Create the Generative Model (for Naming Clusters)
--- This uses Gemini 1.5 Flash to generate human-readable labels for our clusters.
+-- This uses Gemini 2.5 pro/flash to generate human-readable labels for our clusters.
 CREATE OR REPLACE MODEL `bnoriega-test-ge.ConversationLogs.generative_model`
 REMOTE WITH CONNECTION `us.vertex_embeddings_conn`
 OPTIONS (ENDPOINT = 'gemini-2.5-pro');
